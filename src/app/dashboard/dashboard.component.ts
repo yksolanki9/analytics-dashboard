@@ -17,13 +17,15 @@ export class DashboardComponent implements OnInit {
     if (matches) {
       return {
         cols: 1,
+        rowHeight: '200px',
         statsCard: { cols: 1, rows: 1 },
-        pieChart: { cols: 1, rows: 1 },
-        barChart: { cols: 1, rows: 1 },
+        pieChart: { cols: 1, rows: 2 },
+        barChart: { cols: 1, rows: 2 },
       };
     } else {
       return {
         cols: 10,
+        rowHeight: '200px',
         statsCard: { cols: 2, rows: 1 },
         pieChart: { cols: 5, rows: 2 },
         barChart: { cols: 10, rows: 2 },
