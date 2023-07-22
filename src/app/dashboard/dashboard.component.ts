@@ -16,14 +16,14 @@ export class DashboardComponent implements OnInit {
   private getCardsLayout(matches: boolean) {
     if (matches) {
       return {
-        columns: 1,
+        cols: 1,
         statsCard: { cols: 1, rows: 1 },
         pieChart: { cols: 1, rows: 1 },
         barChart: { cols: 1, rows: 1 },
       };
     } else {
       return {
-        columns: 10,
+        cols: 10,
         statsCard: { cols: 2, rows: 1 },
         pieChart: { cols: 5, rows: 1 },
         barChart: { cols: 10, rows: 1 },
@@ -35,5 +35,7 @@ export class DashboardComponent implements OnInit {
     this.cardsLayout$ = this.breakpointObserver
       .observe(Breakpoints.Handset)
       .pipe(map(({ matches }) => this.getCardsLayout(matches)));
+
+    this.cardsLayout$.subscribe((data) => console.log('cela', data));
   }
 }
