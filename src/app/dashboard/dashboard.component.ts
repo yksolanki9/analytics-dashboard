@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
         rowHeight: '200px',
         statsCard: { cols: 1, rows: 1 },
         doughnutChart: { cols: 1, rows: 2 },
-        barChart: { cols: 1, rows: 2 },
+        barChart: { cols: 1, rows: 1 },
       };
     } else {
       return {
