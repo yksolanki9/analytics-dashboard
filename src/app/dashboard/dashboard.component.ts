@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +10,23 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
+
+  // Pie
+  public pieChartOptions: ChartOptions<'pie'> = {
+    responsive: false,
+  };
+  public pieChartLabels = [
+    ['Download', 'Sales'],
+    ['In', 'Store', 'Sales'],
+    'Mail Sales',
+  ];
+  public pieChartDatasets = [
+    {
+      data: [300, 500, 100],
+    },
+  ];
+  public pieChartLegend = true;
+  public pieChartPlugins = [];
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(

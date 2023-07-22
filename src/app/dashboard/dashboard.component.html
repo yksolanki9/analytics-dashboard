@@ -15,8 +15,17 @@
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+        <!-- <mat-card-content class="dashboard-card-content"> -->
+        <mat-card-content>
+          <!-- <div>Card Content Here</div> -->
+          <canvas baseChart
+            [type]="'pie'"
+            [datasets]="pieChartDatasets"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend">
+          </canvas>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
