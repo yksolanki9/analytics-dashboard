@@ -1,7 +1,7 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <ng-container *ngIf="cardsLayout$ | async as cardsLayout">
-    <mat-grid-list [cols]="cardsLayout.cols" rowHeight="350px">
+    <mat-grid-list [cols]="cardsLayout.cols" rowHeight="200px">
       <mat-grid-tile *ngFor="let statsCardIndex of [1, 2, 3, 4, 5]" [colspan]="cardsLayout.statsCard.cols" [rowspan]="cardsLayout.statsCard.rows">
         <app-card title="Stat card"><div>Stat card content here</div></app-card>
       </mat-grid-tile>

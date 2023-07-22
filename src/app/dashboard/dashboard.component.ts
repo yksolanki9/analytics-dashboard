@@ -25,8 +25,8 @@ export class DashboardComponent implements OnInit {
       return {
         cols: 10,
         statsCard: { cols: 2, rows: 1 },
-        pieChart: { cols: 5, rows: 1 },
-        barChart: { cols: 10, rows: 1 },
+        pieChart: { cols: 5, rows: 2 },
+        barChart: { cols: 10, rows: 2 },
       };
     }
   }
