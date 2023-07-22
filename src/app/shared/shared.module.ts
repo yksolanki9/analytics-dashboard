@@ -4,10 +4,11 @@ import { CardComponent } from './components/card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 @NgModule({
-  declarations: [CardComponent, DoughnutChartComponent],
+  declarations: [CardComponent, DoughnutChartComponent, BarChartComponent],
   imports: [CommonModule, MatCardModule, NgChartsModule],
-  exports: [CardComponent, DoughnutChartComponent],
+  exports: [CardComponent, DoughnutChartComponent, BarChartComponent],
 })
 export class SharedModule {}
