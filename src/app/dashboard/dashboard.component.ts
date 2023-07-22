@@ -1,51 +1,39 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { ChartOptions } from 'chart.js';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
 
-  // Pie
-  public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: false,
-  };
-  public pieChartLabels = [
-    ['Download', 'Sales'],
-    ['In', 'Store', 'Sales'],
-    'Mail Sales',
-  ];
-  public pieChartDatasets = [
-    {
-      data: [300, 500, 100],
-    },
-  ];
-  public pieChartLegend = true;
-  public pieChartPlugins = [];
+  cardsLayout$: Observable<any>;
 
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 },
-        ];
-      }
+  private getCardsLayout(matches: boolean) {
+    if (matches) {
+      return {
+        columns: 1,
+        statsCard: { cols: 1, rows: 1 },
+        pieChart: { cols: 1, rows: 1 },
+        barChart: { cols: 1, rows: 1 },
+      };
+    } else {
+      return {
+        columns: 10,
+        statsCard: { cols: 2, rows: 1 },
+        pieChart: { cols: 5, rows: 1 },
+        barChart: { cols: 10, rows: 1 },
+      };
+    }
+  }
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 },
-      ];
-    })
-  );
+  ngOnInit() {
+    this.cardsLayout$ = this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map(({ matches }) => this.getCardsLayout(matches)));
+  }
 }
