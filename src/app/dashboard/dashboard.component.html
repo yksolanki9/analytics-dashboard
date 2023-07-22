@@ -5,8 +5,8 @@
       <mat-grid-tile *ngFor="let statsCardIndex of [1, 2, 3, 4, 5]" [colspan]="cardsLayout.statsCard.cols" [rowspan]="cardsLayout.statsCard.rows">
         <app-card title="Stat card"><div>Stat card content here</div></app-card>
       </mat-grid-tile>
-      <mat-grid-tile *ngFor="let pieChartIndex of [1, 2]" [colspan]="cardsLayout.pieChart.cols" [rowspan]="cardsLayout.pieChart.rows">
-        <app-card title="Pie chart"><div>Pie chart content here</div></app-card>
+      <mat-grid-tile *ngFor="let doughnutChartIndex of [1, 2]" [colspan]="cardsLayout.doughnutChart.cols" [rowspan]="cardsLayout.doughnutChart.rows">
+        <app-card title="Sales Data"><app-doughnut-chart></app-doughnut-chart></app-card>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="cardsLayout.barChart.cols" [rowspan]="cardsLayout.barChart.rows">
         <app-card title="Bar chart"><div>Bar chart content here</div></app-card>

@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
         cols: 1,
         rowHeight: '200px',
         statsCard: { cols: 1, rows: 1 },
-        pieChart: { cols: 1, rows: 2 },
+        doughnutChart: { cols: 1, rows: 2 },
         barChart: { cols: 1, rows: 2 },
       };
     } else {
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
         cols: 10,
         rowHeight: '200px',
         statsCard: { cols: 2, rows: 1 },
-        pieChart: { cols: 5, rows: 2 },
+        doughnutChart: { cols: 5, rows: 2 },
         barChart: { cols: 10, rows: 2 },
       };
     }
