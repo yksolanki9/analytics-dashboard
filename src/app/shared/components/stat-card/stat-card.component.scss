@@ -1,0 +1,48 @@
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.timeline {
+  font-size: 14px;
+  font-weight: 500;
+  color: darkviolet;
+}
+
+.stat {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.previous-stat {
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  color: darkviolet;
+}
+
+.stat-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chip {
+  height: 22px;
+  background: red;
+  color: white;
+  border-radius: 16px;
+  padding: 4px;
+  font-size: 10px;
+  max-height: 14px;
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+}
+
+.icon {
+  height: 24px;
+  width: 20px;
+}
