@@ -1,7 +1,7 @@
 export interface StatsConfig {
-  percentChange: number;
   previousStat: string;
-  timeline: string;
   title: string;
+  timeline: string;
   value: number;
+  percentChange?: number;
 }

@@ -2,7 +2,7 @@
   <div class="timeline">{{timeline}}</div>
   <div class="stat-container">
     <span class="stat"> {{value}} </span>
-    <span class="chip">
+    <span *ngIf="percentChange" class="chip">
       <!-- TODO: Conditionally show the up arrow with green badge -->
       <mat-icon class="icon">arrow_drop_down</mat-icon>
       <span>{{percentChange}}%</span>
