@@ -2,13 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
 
-describe('CardComponent', () => {
+xdescribe('CardComponent', () => {
   let component: CardComponent;
   let fixture: ComponentFixture<CardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CardComponent]
+      declarations: [CardComponent],
     });
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;

@@ -13,7 +13,7 @@ export class DashboardConfigService {
     this.ROOT_URL = 'https://my-json-server.typicode.com/yksolanki9/mock-api';
   }
 
-  getConfig(): Observable<DashboardConfig> {
-    return this.http.get<DashboardConfig>(`${this.ROOT_URL}/data`);
+  getConfig(): Observable<{ data: DashboardConfig }> {
+    return this.http.get<{ data: DashboardConfig }>(`${this.ROOT_URL}/data`);
   }
 }
