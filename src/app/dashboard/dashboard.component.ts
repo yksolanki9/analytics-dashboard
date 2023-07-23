@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
@@ -14,8 +14,6 @@ import { GridConfig } from '../core/models/grid-config.model';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private breakpointObserver = inject(BreakpointObserver);
-
   componentDestroyed$ = new Subject();
 
   dashboardConfig$: Observable<{
@@ -27,7 +25,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   gridConfig$: Observable<GridConfig>;
 
   constructor(
-    private store: Store<{ dashboardConfig: { data: DashboardConfig } }>
+    private store: Store<{ dashboardConfig: { data: DashboardConfig } }>,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   private getCardsSize(matches: boolean): GridConfig {
@@ -52,14 +51,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(loadConfig());
-
     this.gridConfig$ = this.breakpointObserver
       .observe([Breakpoints.XSmall])
       .pipe(
         takeUntil(this.componentDestroyed$),
         map(({ matches }) => this.getCardsSize(matches))
       );
-
     this.dashboardConfig$ = this.store.select((state) =>
       JSON.parse(JSON.stringify(state.dashboardConfig))
     );
