@@ -1,27 +1,29 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <ng-container *ngIf="cardsLayout$ | async as cardsLayout">
-    <mat-grid-list [cols]="cardsLayout.COLS" [rowHeight]="cardsLayout.ROW_HEIGHT">
-      <ng-container *ngFor="let rowCards of dashboardConfig">
-        <mat-grid-tile *ngFor="let card of rowCards" [colspan]="cardsLayout[card.size].COLS" [rowspan]="cardsLayout[card.size].ROWS">
-          <app-card [title]="card.data.title">
-            <app-stat-card
-              *ngIf="card.type === 'STAT_CARD'"
-              [timeline]="card.data.timeline"
-              [value]="card.data.value"
-              [percentChange]="card.data.percentChange"
-              [previousStat]="card.data.previousStat"
-            ></app-stat-card>
-            <app-chart
-              *ngIf="card.type === 'CHART'"
-              [chartType]="card.data.chartType"
-              [chartData]="card.data.chartData"
-              [chartOptions]="card.data.chartOptions"
-              [chartPlugins]="card.data.chartPlugins"
-            ></app-chart>
-          </app-card>
-        </mat-grid-tile>
-      </ng-container>
-    </mat-grid-list>
+  <h1 class="mat-h1">Admin Dashboard</h1>
+  <ng-container *ngIf="cardsConfig$ | async as cardsConfig">
+    <ng-container *ngIf="dashboardConfig$ | async as dashboardConfig">
+      <mat-grid-list [cols]="cardsConfig.COLS" [rowHeight]="cardsConfig.ROW_HEIGHT">
+        <ng-container *ngFor="let rowCards of dashboardConfig">
+          <mat-grid-tile *ngFor="let card of rowCards" [colspan]="cardsConfig[card.size].COLS" [rowspan]="cardsConfig[card.size].ROWS">
+            <app-card *ngIf="card.data" [title]="card.data.title">
+              <app-stat-card
+                *ngIf="card.type === 'STAT_CARD'"
+                [timeline]="card.data.timeline"
+                [value]="card.data.value"
+                [percentChange]="card.data.percentChange"
+                [previousStat]="card.data.previousStat"
+              ></app-stat-card>
+              <app-chart
+                *ngIf="card.type === 'CHART'"
+                [chartType]="card.data.chartType"
+                [chartData]="card.data.chartData"
+                [chartOptions]="card.data.chartOptions"
+                [chartPlugins]="card.data.chartPlugins"
+              ></app-chart>
+            </app-card>
+          </mat-grid-tile>
+        </ng-container>
+      </mat-grid-list>
+    </ng-container>
   </ng-container>
 </div>

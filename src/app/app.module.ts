@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { chartReducer } from './store/reducers/chart.reducers';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent],
@@ -26,7 +27,9 @@ import { EffectsModule } from '@ngrx/effects';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      dashboardConfig: chartReducer,
+    }),
     EffectsModule.forRoot([]),
   ],
   providers: [],
