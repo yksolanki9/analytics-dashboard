@@ -30,8 +30,8 @@ describe('DashboardConfigService', () => {
   });
 
   it('should return dashboard configuration', (done: DoneFn) => {
-    const mockResponse = dashboardConfigData as { data: DashboardConfig };
-    service.getConfig().subscribe((result: { data: DashboardConfig }) => {
+    const mockResponse = dashboardConfigData as DashboardConfig;
+    service.getConfig().subscribe((result: DashboardConfig) => {
       expect(result).toEqual(mockResponse);
       done();
     });
