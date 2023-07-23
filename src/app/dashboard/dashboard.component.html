@@ -1,37 +1,27 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <ng-container *ngIf="cardsLayout$ | async as cardsLayout">
-    <mat-grid-list [cols]="cardsLayout.cols" [rowHeight]="cardsLayout.rowHeight">
-      <mat-grid-tile *ngFor="let statsBadge of statsBadges" [colspan]="cardsLayout.statsCard.cols" [rowspan]="cardsLayout.statsCard.rows">
-        <app-card [title]="statsBadge.title">
-          <app-stat-card
-            [timeline]="statsBadge.timeline"
-            [value]="statsBadge.value"
-            [percentChange]="statsBadge.percentChange"
-            [previousStat]="statsBadge.previousStat"
-          ></app-stat-card>
-        </app-card>
-      </mat-grid-tile>
-      <mat-grid-tile *ngFor="let doughnutChartIndex of [1, 2]" [colspan]="cardsLayout.doughnutChart.cols" [rowspan]="cardsLayout.doughnutChart.rows">
-        <app-card title="Sales Data">
-          <app-chart
-            [chartType]="'doughnut'"
-            [chartData]="doughnutChartData"
-            [chartOptions]="barChartOptions"
-            [chartPlugins]="[]"
-          ></app-chart>
-        </app-card>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="cardsLayout.barChart.cols" [rowspan]="cardsLayout.barChart.rows">
-        <app-card title="Sales Data">
-          <app-chart
-            [chartType]="'bar'"
-            [chartData]="barChartData"
-            [chartOptions]="barChartOptions"
-            [chartPlugins]="[]"
-          ></app-chart>
-        </app-card>
-      </mat-grid-tile>
+    <mat-grid-list [cols]="cardsLayout.COLS" [rowHeight]="cardsLayout.ROW_HEIGHT">
+      <ng-container *ngFor="let rowCards of dashboardConfig">
+        <mat-grid-tile *ngFor="let card of rowCards" [colspan]="cardsLayout[card.size].COLS" [rowspan]="cardsLayout[card.size].ROWS">
+          <app-card [title]="card.data.title">
+            <app-stat-card
+              *ngIf="card.type === 'STAT_CARD'"
+              [timeline]="card.data.timeline"
+              [value]="card.data.value"
+              [percentChange]="card.data.percentChange"
+              [previousStat]="card.data.previousStat"
+            ></app-stat-card>
+            <app-chart
+              *ngIf="card.type === 'CHART'"
+              [chartType]="card.data.chartType"
+              [chartData]="card.data.chartData"
+              [chartOptions]="card.data.chartOptions"
+              [chartPlugins]="card.data.chartPlugins"
+            ></app-chart>
+          </app-card>
+        </mat-grid-tile>
+      </ng-container>
     </mat-grid-list>
   </ng-container>
 </div>

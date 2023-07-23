@@ -16,29 +16,30 @@ export class DashboardComponent implements OnInit {
 
   barChartData: ChartData;
 
-  barChartOptions: ChartOptions;
+  chartOptions: ChartOptions;
 
   doughnutChartData: ChartData;
 
   cardsLayout$: Observable<any>;
 
-  private getCardsLayout(matches: boolean) {
-    // TODO: Rename to SM, MD, and so on
+  dashboardConfig: Array<any>;
+
+  private getCardsSize(matches: boolean) {
     if (matches) {
       return {
-        cols: 1,
-        rowHeight: '100px',
-        statsCard: { cols: 1, rows: 2 },
-        doughnutChart: { cols: 1, rows: 4 },
-        barChart: { cols: 1, rows: 3 },
+        COLS: 1,
+        ROW_HEIGHT: '100px',
+        SM: { COLS: 1, ROWS: 2 },
+        MD: { COLS: 1, ROWS: 4 },
+        LG: { COLS: 1, ROWS: 3 },
       };
     } else {
       return {
-        cols: 10,
-        rowHeight: '200px',
-        statsCard: { cols: 2, rows: 1 },
-        doughnutChart: { cols: 5, rows: 2 },
-        barChart: { cols: 10, rows: 2 },
+        COLS: 10,
+        ROW_HEIGHT: '200px',
+        SM: { COLS: 2, ROWS: 1 },
+        MD: { COLS: 5, ROWS: 2 },
+        LG: { COLS: 10, ROWS: 2 },
       };
     }
   }
@@ -46,45 +47,65 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.cardsLayout$ = this.breakpointObserver
       .observe(Breakpoints.Handset)
-      .pipe(map(({ matches }) => this.getCardsLayout(matches)));
+      .pipe(map(({ matches }) => this.getCardsSize(matches)));
 
     this.cardsLayout$.subscribe((data) => console.log('cela', data));
 
     this.statsBadges = [
       {
-        title: 'Badge title',
-        timeline: 'April - 2023 (Till today)',
-        value: 3969,
-        percentChange: -11.0,
-        previousStat: 'March - 2023: 4459',
+        size: 'SM',
+        type: 'STAT_CARD',
+        data: {
+          title: 'Badge title',
+          timeline: 'April - 2023 (Till today)',
+          value: 3969,
+          percentChange: -11.0,
+          previousStat: 'March - 2023: 4459',
+        },
       },
       {
-        title: 'Badge title',
-        timeline: 'April - 2023 (Till today)',
-        value: 3969,
-        percentChange: -11.0,
-        previousStat: 'March - 2023: 4459',
+        size: 'SM',
+        type: 'STAT_CARD',
+        data: {
+          title: 'Badge title',
+          timeline: 'April - 2023 (Till today)',
+          value: 3969,
+          percentChange: -11.0,
+          previousStat: 'March - 2023: 4459',
+        },
       },
       {
-        title: 'Badge title',
-        timeline: 'April - 2023 (Till today)',
-        value: 3969,
-        percentChange: -11.0,
-        previousStat: 'March - 2023: 4459',
+        size: 'SM',
+        type: 'STAT_CARD',
+        data: {
+          title: 'Badge title',
+          timeline: 'April - 2023 (Till today)',
+          value: 3969,
+          percentChange: -11.0,
+          previousStat: 'March - 2023: 4459',
+        },
       },
       {
-        title: 'Badge title',
-        timeline: 'April - 2023 (Till today)',
-        value: 3969,
-        percentChange: -11.0,
-        previousStat: 'March - 2023: 4459',
+        size: 'SM',
+        type: 'STAT_CARD',
+        data: {
+          title: 'Badge title',
+          timeline: 'April - 2023 (Till today)',
+          value: 3969,
+          percentChange: -11.0,
+          previousStat: 'March - 2023: 4459',
+        },
       },
       {
-        title: 'Badge title',
-        timeline: 'April - 2023 (Till today)',
-        value: 3969,
-        percentChange: -11.0,
-        previousStat: 'March - 2023: 4459',
+        size: 'SM',
+        type: 'STAT_CARD',
+        data: {
+          title: 'Badge title',
+          timeline: 'April - 2023 (Till today)',
+          value: 3969,
+          percentChange: -11.0,
+          previousStat: 'March - 2023: 4459',
+        },
       },
     ];
 
@@ -96,7 +117,7 @@ export class DashboardComponent implements OnInit {
       ],
     };
 
-    this.barChartOptions = {
+    this.chartOptions = {
       responsive: false,
       plugins: {
         legend: {
@@ -113,5 +134,46 @@ export class DashboardComponent implements OnInit {
         },
       ],
     };
+
+    this.dashboardConfig = [
+      this.statsBadges,
+      [
+        {
+          type: 'CHART',
+          size: 'MD',
+          data: {
+            title: 'Chart title',
+            chartType: 'doughnut',
+            chartData: this.doughnutChartData,
+            chartOptions: this.chartOptions,
+            chartPlugins: [],
+          },
+        },
+        {
+          type: 'CHART',
+          size: 'MD',
+          data: {
+            title: 'Chart 2 title',
+            chartType: 'doughnut',
+            chartData: this.doughnutChartData,
+            chartOptions: this.chartOptions,
+            chartPlugins: [],
+          },
+        },
+      ],
+      [
+        {
+          type: 'CHART',
+          size: 'LG',
+          data: {
+            title: 'Chart 3 title',
+            chartType: 'bar',
+            chartData: this.barChartData,
+            chartOptions: this.chartOptions,
+            chartPlugins: [],
+          },
+        },
+      ],
+    ];
   }
 }
