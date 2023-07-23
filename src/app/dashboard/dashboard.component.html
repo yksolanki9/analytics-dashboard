@@ -2,8 +2,15 @@
   <h1 class="mat-h1">Dashboard</h1>
   <ng-container *ngIf="cardsLayout$ | async as cardsLayout">
     <mat-grid-list [cols]="cardsLayout.cols" [rowHeight]="cardsLayout.rowHeight">
-      <mat-grid-tile *ngFor="let statsCardIndex of [1, 2, 3, 4, 5]" [colspan]="cardsLayout.statsCard.cols" [rowspan]="cardsLayout.statsCard.rows">
-        <app-card title="Some title"><app-stat-card></app-stat-card></app-card>
+      <mat-grid-tile *ngFor="let statsBadge of statsBadges" [colspan]="cardsLayout.statsCard.cols" [rowspan]="cardsLayout.statsCard.rows">
+        <app-card [title]="statsBadge.title">
+          <app-stat-card
+            [timeline]="statsBadge.timeline"
+            [value]="statsBadge.value"
+            [percentChange]="statsBadge.percentChange"
+            [previousStat]="statsBadge.previousStat"
+          ></app-stat-card>
+        </app-card>
       </mat-grid-tile>
       <mat-grid-tile *ngFor="let doughnutChartIndex of [1, 2]" [colspan]="cardsLayout.doughnutChart.cols" [rowspan]="cardsLayout.doughnutChart.rows">
         <app-card title="Sales Data"><app-doughnut-chart></app-doughnut-chart></app-card>

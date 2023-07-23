@@ -1,13 +1,12 @@
-<!-- TODO: Get the inputs from parent component -->
 <div class="stat-card">
-  <div class="timeline">April - 2023 (Till today)</div>
+  <div class="timeline">{{timeline}}</div>
   <div class="stat-container">
-    <span class="stat"> 3969 </span>
+    <span class="stat"> {{value}} </span>
     <span class="chip">
       <!-- TODO: Conditionally show the up arrow with green badge -->
       <mat-icon class="icon">arrow_drop_down</mat-icon>
-      <span>-11.0%</span>
+      <span>{{percentChange}}%</span>
     </span>
   </div>
-  <div class="previous-stat">March - 2023: 4459</div>
+  <div class="previous-stat">{{previousStat}}</div>
 </div>
