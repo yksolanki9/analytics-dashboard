@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,11 @@ export class DashboardComponent implements OnInit {
 
   statsBadges: Array<any>;
 
-  barChartData: Object;
+  barChartData: ChartData;
+
+  barChartOptions: ChartOptions;
+
+  doughnutChartData: ChartData;
 
   cardsLayout$: Observable<any>;
 
@@ -88,6 +93,24 @@ export class DashboardComponent implements OnInit {
       datasets: [
         { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
         { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+      ],
+    };
+
+    this.barChartOptions = {
+      responsive: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+        },
+      },
+    };
+
+    this.doughnutChartData = {
+      labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+      datasets: [
+        {
+          data: [300, 500, 100],
+        },
       ],
     };
   }

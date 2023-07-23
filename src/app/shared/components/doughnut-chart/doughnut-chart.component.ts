@@ -16,16 +16,15 @@ export class DoughnutChartComponent {
       },
     },
   };
-  public doughnutChartLabels = [
-    ['Download', 'Sales'],
-    ['In', 'Store', 'Sales'],
-    'Mail Sales',
-  ];
-  public doughnutChartDatasets = [
-    {
-      data: [300, 500, 100],
-    },
-  ];
+
+  public doughnutChartData = {
+    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    datasets: [
+      {
+        data: [300, 500, 100],
+      },
+    ],
+  };
   public doughnutChartLegend = true;
   public doughnutChartPlugins = [];
 }
