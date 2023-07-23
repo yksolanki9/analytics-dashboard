@@ -4,6 +4,9 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { loadConfig } from '../store/actions/dashboard-config.actions';
+import { DashboardConfig } from '../core/models/dashboard-config.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { GridConfig } from '../core/models/grid-config.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,18 +19,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   componentDestroyed$ = new Subject();
 
   dashboardConfig$: Observable<{
-    data: Array<any>;
-    error: any;
+    data: DashboardConfig;
+    error: HttpErrorResponse;
     loading: boolean;
   }>;
 
-  cardsConfig$: Observable<any>;
+  gridConfig$: Observable<GridConfig>;
 
   constructor(
-    private store: Store<{ dashboardConfig: { data: Array<any> } }>
+    private store: Store<{ dashboardConfig: { data: DashboardConfig } }>
   ) {}
 
-  private getCardsSize(matches: boolean) {
+  private getCardsSize(matches: boolean): GridConfig {
     if (matches) {
       return {
         COLS: 1,
@@ -50,7 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.dispatch(loadConfig());
 
-    this.cardsConfig$ = this.breakpointObserver
+    this.gridConfig$ = this.breakpointObserver
       .observe([Breakpoints.XSmall])
       .pipe(
         takeUntil(this.componentDestroyed$),

@@ -1,11 +1,11 @@
 <div class="grid-container">
   <h1 class="mat-h1">Admin Dashboard</h1>
-  <ng-container *ngIf="cardsConfig$ | async as cardsConfig">
+  <ng-container *ngIf="gridConfig$ | async as gridConfig">
     <ng-container *ngIf="dashboardConfig$ | async as dashboardConfig">
-      <mat-grid-list [cols]="cardsConfig.COLS" [rowHeight]="cardsConfig.ROW_HEIGHT">
+      <mat-grid-list [cols]="gridConfig.COLS" [rowHeight]="gridConfig.ROW_HEIGHT">
         <ng-container *ngIf="dashboardConfig.data; else loadingOrError">
           <ng-container *ngFor="let rowCards of dashboardConfig.data">
-            <mat-grid-tile *ngFor="let card of rowCards" [colspan]="cardsConfig[card.size].COLS" [rowspan]="cardsConfig[card.size].ROWS">
+            <mat-grid-tile *ngFor="let card of rowCards" [colspan]="gridConfig[card.size].COLS" [rowspan]="gridConfig[card.size].ROWS">
               <app-card *ngIf="card.data" [title]="card.data.title">
                 <app-stat-card
                   *ngIf="card.type === 'STAT_CARD'"
