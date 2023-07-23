@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { ChartData, ChartOptions } from 'chart.js';
 
 @Component({
@@ -9,8 +9,10 @@ import { ChartData, ChartOptions } from 'chart.js';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   private breakpointObserver = inject(BreakpointObserver);
+
+  componentDestroyed$ = new Subject();
 
   statsBadges: Array<any>;
 
@@ -46,10 +48,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.cardsLayout$ = this.breakpointObserver
-      .observe(Breakpoints.Handset)
-      .pipe(map(({ matches }) => this.getCardsSize(matches)));
-
-    this.cardsLayout$.subscribe((data) => console.log('cela', data));
+      .observe([Breakpoints.XSmall])
+      .pipe(
+        takeUntil(this.componentDestroyed$),
+        map(({ matches }) => this.getCardsSize(matches))
+      );
 
     this.statsBadges = [
       {
@@ -127,7 +130,7 @@ export class DashboardComponent implements OnInit {
     };
 
     this.doughnutChartData = {
-      labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+      labels: ['Type A', 'Type B', 'Type C'],
       datasets: [
         {
           data: [300, 500, 100],
@@ -175,5 +178,10 @@ export class DashboardComponent implements OnInit {
         },
       ],
     ];
+  }
+
+  ngOnDestroy() {
+    this.componentDestroyed$.next(null);
+    this.componentDestroyed$.complete();
   }
 }
