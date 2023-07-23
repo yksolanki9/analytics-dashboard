@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   gridConfig$: Observable<GridConfig>;
 
+  title: string;
+
   constructor(
     private store: Store<{ dashboardConfig: { data: DashboardConfig } }>,
     private breakpointObserver: BreakpointObserver
@@ -60,6 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dashboardConfig$ = this.store.select((state) =>
       JSON.parse(JSON.stringify(state.dashboardConfig))
     );
+    this.title = 'Admin Dashboard';
   }
 
   ngOnDestroy() {

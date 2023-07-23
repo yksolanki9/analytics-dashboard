@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Admin Dashboard</h1>
+  <h1 class="mat-h1">{{title}}</h1>
   <ng-container *ngIf="gridConfig$ | async as gridConfig">
     <ng-container *ngIf="dashboardConfig$ | async as dashboardConfig">
       <mat-grid-list [cols]="gridConfig.COLS" [rowHeight]="gridConfig.ROW_HEIGHT">
