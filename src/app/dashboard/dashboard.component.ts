@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-import { ChartData, ChartOptions } from 'chart.js';
 import { Store } from '@ngrx/store';
-import { selectDashboardConfig } from '../store/selectors/chart.selectors';
+import { loadConfig } from '../store/actions/dashboard-config.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +15,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   componentDestroyed$ = new Subject();
 
-  dashboardConfig$: Observable<Array<any>>;
+  dashboardConfig$: Observable<{
+    data: Array<any>;
+    error: any;
+    loading: boolean;
+  }>;
 
   cardsConfig$: Observable<any>;
 
-  constructor(private store: Store<{ dashboardConfig: Array<any> }>) {}
+  constructor(
+    private store: Store<{ dashboardConfig: { data: Array<any> } }>
+  ) {}
 
   private getCardsSize(matches: boolean) {
     if (matches) {
@@ -43,6 +48,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.store.dispatch(loadConfig());
+
     this.cardsConfig$ = this.breakpointObserver
       .observe([Breakpoints.XSmall])
       .pipe(
@@ -50,7 +57,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         map(({ matches }) => this.getCardsSize(matches))
       );
 
-    this.dashboardConfig$ = this.store.select(selectDashboardConfig);
+    this.dashboardConfig$ = this.store.select((state) =>
+      JSON.parse(JSON.stringify(state.dashboardConfig))
+    );
   }
 
   ngOnDestroy() {

@@ -13,7 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { chartReducer } from './store/reducers/chart.reducers';
+import { dashboardConfigReducer } from './store/reducers/dashboard-config.reducers';
+import { DashboardConfigEffects } from './store/effects/dashboard-config.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent],
@@ -21,6 +23,7 @@ import { chartReducer } from './store/reducers/chart.reducers';
     SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     NgChartsModule,
     MatGridListModule,
     MatCardModule,
@@ -28,9 +31,9 @@ import { chartReducer } from './store/reducers/chart.reducers';
     MatIconModule,
     MatButtonModule,
     StoreModule.forRoot({
-      dashboardConfig: chartReducer,
+      dashboardConfig: dashboardConfigReducer,
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([DashboardConfigEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

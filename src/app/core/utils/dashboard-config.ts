@@ -1,3 +1,5 @@
+//Endpoint -> https://my-json-server.typicode.com/yksolanki9/mock-api/data
+
 const statsBadges = [
   {
     size: 'SM',
