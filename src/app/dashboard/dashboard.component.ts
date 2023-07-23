@@ -14,13 +14,14 @@ export class DashboardComponent implements OnInit {
   cardsLayout$: Observable<any>;
 
   private getCardsLayout(matches: boolean) {
+    // TODO: Rename to SM, MD, and so on
     if (matches) {
       return {
         cols: 1,
-        rowHeight: '200px',
-        statsCard: { cols: 1, rows: 1 },
-        doughnutChart: { cols: 1, rows: 2 },
-        barChart: { cols: 1, rows: 1 },
+        rowHeight: '100px',
+        statsCard: { cols: 1, rows: 2 },
+        doughnutChart: { cols: 1, rows: 4 },
+        barChart: { cols: 1, rows: 3 },
       };
     } else {
       return {
