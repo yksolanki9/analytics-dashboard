@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   title: string;
 
+  searchQuery: string = '';
+
   constructor(
     private store: Store<{ dashboardConfig: { data: DashboardConfig } }>,
     private breakpointObserver: BreakpointObserver

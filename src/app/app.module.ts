@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { dashboardConfigReducer } from './store/reducers/dashboard-config.reducers';
 import { DashboardConfigEffects } from './store/effects/dashboard-config.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent],
@@ -30,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    FormsModule,
     StoreModule.forRoot({
       dashboardConfig: dashboardConfigReducer,
     }),

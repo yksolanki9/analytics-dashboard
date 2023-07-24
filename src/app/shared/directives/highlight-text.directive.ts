@@ -13,38 +13,33 @@ export class HighlightTextDirective {
       return text;
     }
 
-    const re = new RegExp(searchTerm, 'gi');
+    const regex = new RegExp(searchTerm, 'gi');
     return text.replace(
-      re,
+      regex,
       (match) => `<span class="text-highlight">${match}</span>`
     );
   }
 
+  private updateTemplate(searchQuery: string) {
+    const value = this.elementRef.nativeElement.innerHTML;
+    if (!value.includes('<canvas')) {
+      const highlightedValue = this.highlightText(
+        value,
+        searchQuery
+      );
+      this.elementRef.nativeElement.innerHTML = highlightedValue;
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
-      const value = this.elementRef.nativeElement.innerHTML;
-      if(!value.includes('<canvas')) {
-        const highlightedValue = this.highlightText(
-          value,
-          changes['searchTerm'].currentValue
-        );
-        this.elementRef.nativeElement.innerHTML = highlightedValue;
-      }
+      this.updateTemplate(changes['searchTerm'].currentValue);
     }
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      if(this.searchTerm) {
-        const value = this.elementRef.nativeElement.innerHTML;
-        if(!value.includes('<canvas')) {
-          const highlightedValue = this.highlightText(
-            value,
-            this.searchTerm
-          );
-          this.elementRef.nativeElement.innerHTML = highlightedValue;
-        }
-      }
-    }, 1000)
+    if(this.searchTerm) {
+      this.updateTemplate(this.searchTerm);
+    }
   }
 }

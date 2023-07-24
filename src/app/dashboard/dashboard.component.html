@@ -1,7 +1,7 @@
 <div class="grid-container">
-  <div class="header" [appHighlightText]="'total'">
-    <h1 class="mat-h1">{{title}}</h1>
-    <input placeholder="Enter Search Query"/>
+  <div class="header">
+    <h1 [appHighlightText]="searchQuery" class="mat-h1">{{title}}</h1>
+    <input disabled class="searchbar" placeholder="Enter your search term" [(ngModel)]="searchQuery">
   </div>
   <ng-container *ngIf="gridConfig$ | async as gridConfig">
     <ng-container *ngIf="dashboardConfig$ | async as dashboardConfig">
@@ -9,7 +9,7 @@
         <ng-container *ngIf="dashboardConfig.data; else loadingOrError">
           <ng-container *ngFor="let rowCards of dashboardConfig.data">
             <mat-grid-tile *ngFor="let card of rowCards" [colspan]="gridConfig[card.size].COLS" [rowspan]="gridConfig[card.size].ROWS">
-              <app-card *ngIf="card.data" [title]="card.data.title" [appHighlightText]="'total'">
+              <app-card *ngIf="card.data" [title]="card.data.title" [appHighlightText]="searchQuery">
                 <app-stat-card
                   *ngIf="card.type === 'STAT_CARD'"
                   [timeline]="card.data.timeline"
