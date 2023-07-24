@@ -1,12 +1,15 @@
 <div class="grid-container">
-  <h1 class="mat-h1">{{title}}</h1>
+  <div class="header" [appHighlightText]="'total'">
+    <h1 class="mat-h1">{{title}}</h1>
+    <input placeholder="Enter Search Query"/>
+  </div>
   <ng-container *ngIf="gridConfig$ | async as gridConfig">
     <ng-container *ngIf="dashboardConfig$ | async as dashboardConfig">
       <mat-grid-list [cols]="gridConfig.COLS" [rowHeight]="gridConfig.ROW_HEIGHT">
         <ng-container *ngIf="dashboardConfig.data; else loadingOrError">
           <ng-container *ngFor="let rowCards of dashboardConfig.data">
             <mat-grid-tile *ngFor="let card of rowCards" [colspan]="gridConfig[card.size].COLS" [rowspan]="gridConfig[card.size].ROWS">
-              <app-card *ngIf="card.data" [title]="card.data.title">
+              <app-card *ngIf="card.data" [title]="card.data.title" [appHighlightText]="'total'">
                 <app-stat-card
                   *ngIf="card.type === 'STAT_CARD'"
                   [timeline]="card.data.timeline"
